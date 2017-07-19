@@ -1,3 +1,4 @@
+
 var App = {};
 
 $(function(){
@@ -16,6 +17,7 @@ App.Application = (function() {
 
   Application.fn = Application.prototype;
 
+
   Application.fn.run = function() {
       console.log('Running!', this.state);
 
@@ -23,9 +25,14 @@ App.Application = (function() {
       this.initSliderCategory();
       this.insertContentHero();
       this.anchorHero();
+      //this.errorImagem();
 
       // this.initClipboard();
   };
+  
+  Application.fn.errorImagem = function(event){
+    console.log(event, arguments)
+  }
 
   Application.fn.anchorHero = function() {
       var el = this.container.find('.mz-content-last')[0];
@@ -53,6 +60,11 @@ App.Application = (function() {
         if (this.status == 200) {
           var response = JSON.parse(xhttp.responseText);
 
+
+          /**
+           * o: objeto com o nô do json.
+           * i: indice no Array.
+           */
           _.map(response.recs, function(o, i){
             var data = {};
 
@@ -60,31 +72,40 @@ App.Application = (function() {
             data.sectionTitle = o.nome;
             data.sectionUrl = 'https://www.usereserva.com/' + o.nome;
             data.sectionProducts = [];
-
+            
             var filteredIsEstoque = _.filter(o.produtos, function(o) {
               return o.estoque !== 0
             });
 
-            _.map(filteredIsEstoque, function(o, i) {
+            _.map(filteredIsEstoque, function(obj, i) {
               var item = {};
 
-              item.productName = o.titulo;
-              item.productUrl = 'https://www.usereserva.com/usereserva/p/produto/' + o.produto;
+              var productName = obj.titulo;
+              var productUrl = 'https://www.usereserva.com/usereserva/p/produto/' + obj.produto;
+
+              _.map(filteredIsEstoque, function(o, i) {
+              var productName = o.titulo;
+              var productUrl = 'https://www.usereserva.com/usereserva/p/produto/' + o.produto;
 
               _.map(o.cores, function(o, i) {
-                if (o.estoque !== 0) {
-
-                  item.produtoImage = o.imgUrl;
-                  item.productTitle = (o.titulo === '' ? item.productName : o.titulo);
-                  item.productPrice = o.preco_por;
-                  item.productPriceWithOption = o.preco_de;
-                  data.sectionProducts.push(item);
-                };
+                if (o.estoque > 0) {
+                    data.sectionProducts.push(
+                      {
+                        'productName': productName,
+                        'productUrl': productUrl,
+                        'produtoImage': o.imgUrl,
+                        'productTitle': (o.titulo === '' ? productName : o.titulo),
+                        'productPrice': o.preco_por,
+                        'productPriceWithOption': o.preco_de
+                      }
+                    );
+                  };
+                });
               });
             });
 
             _self.state.sections.push(data);
-
+            //console.log(_self.state.sections)
             if (i === 3) {
               _self.insertContentSlider();
             };
@@ -141,6 +162,7 @@ App.Application = (function() {
       data: {
         mail: _self.state.mail
       }
+      
     });
   }
 
@@ -166,7 +188,13 @@ App.Application = (function() {
         data: {
           section: filterCombinar[0].sectionProducts,
           sectionUrl: filterCombinar[0].sectionUrl,
-          sectionTitle: filterCombinar[0].sectionTitle
+          sectionTitle: filterCombinar[0].sectionTitle,
+          isHidden: true
+        },
+        methods: {
+          error(index){
+            //console.log(index)
+          } 
         }
       });
 
@@ -197,3 +225,15 @@ App.Application = (function() {
   
   return Application;
 })();
+
+document.addEventListener('DOMContentLoaded', function(){
+  
+  setTimeout(function() {
+    $('.img-product').each(function(index, obj){
+      if($(obj).attr('style') === 'display: none;'){
+        $(obj).closest('.swiper-slide').addClass('hidden')
+      }
+    })
+  }, 1500);
+  
+});
