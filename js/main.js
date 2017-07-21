@@ -96,7 +96,7 @@ App.Application = (function() {
                       });
                   };
                 });
-              data.sectionProducts.push({'Produtos': grupo})
+              data.sectionProducts.push({'produtos': grupo})
             });
 
             console.log('--------------data----------------------');
@@ -163,10 +163,6 @@ App.Application = (function() {
       
     });
   }
-
-  Vue.component('imagem', {
-    template: '<p>some imagem</p>'
-  })
 
   Application.fn.insertContentSlider = function() {
     var _self = this;
