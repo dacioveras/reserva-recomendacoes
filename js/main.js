@@ -21,7 +21,7 @@ App.Application = (function() {
   Application.fn.run = function() {
       console.log('Running!', this.state);
 
-      this.sendSequest('lucasaborges@hotmail.com');
+      this.sendRequest('lucasaborges@hotmail.com');
       this.initSliderCategory();
       this.insertContentHero();
       this.anchorHero();
@@ -45,7 +45,7 @@ App.Application = (function() {
       }.bind(this), false);
   };
 
-  Application.fn.sendSequest = function(email) {
+  Application.fn.sendRequest = function(email) {
     var _self = this;
     this.state.mail = email;
     var RECSYS_URL = 'https://reservapto.com.br:3000/recapi/v1/rec/' + email;
@@ -69,42 +69,41 @@ App.Application = (function() {
 
             data.sectionPosition = o.rank;
             data.sectionTitle = o.nome;
-            data.sectionUrl = 'https://www.usereserva.com/' + o.nome;
+            data.sectionUrl = 'https://www.usereserva.com/' + o.nome.toLowerCase();
             data.sectionProducts = [];
             
             var filteredIsEstoque = _.filter(o.produtos, function(o) {
-              return o.estoque !== 0
+              return o.estoque > 0
             });
 
-            _.map(filteredIsEstoque, function(obj, i) {
-              var item = {};
-
-              var productName = obj.titulo;
-              var productUrl = 'https://www.usereserva.com/usereserva/p/produto/' + obj.produto;
-
-              _.map(filteredIsEstoque, function(o, i) {
+            _.map(filteredIsEstoque, function(o, i) {              
               var productName = o.titulo;
-              var productUrl = 'https://www.usereserva.com/usereserva/p/produto/' + o.produto;
+              var codProduto = o.produto // Esse produto terá que ser agrupado, quando estoque for maior que 0
+              var productUrl  = 'https://www.usereserva.com/usereserva/p/produto/' + codProduto;
+              var grupo = [];
 
               _.map(o.cores, function(o, i) {
                 if (o.estoque > 0) {
-                    data.sectionProducts.push(
-                      {
+                    var produtoCor  = 'https://imagens.usereserva.com.br/images/Cores/' + o.cor + '.jpg';
+                    grupo.push({
                         'productName': productName,
                         'productUrl': productUrl,
+                        'produtoCor': produtoCor,
                         'produtoImage': o.imgUrl,
                         'productTitle': (o.titulo === '' ? productName : o.titulo),
                         'productPrice': o.preco_por,
                         'productPriceWithOption': o.preco_de
-                      }
-                    );
+                      });
                   };
                 });
-              });
+              data.sectionProducts.push({'produtos': grupo})
             });
 
+            console.log('--------------data----------------------');
+            console.log(data);
+            console.log('------------------------------------');
+
             _self.state.sections.push(data);
-            //console.log(_self.state.sections)
             if (i === 3) {
               _self.insertContentSlider();
             };
@@ -187,8 +186,7 @@ App.Application = (function() {
         data: {
           section: filterCombinar[0].sectionProducts,
           sectionUrl: filterCombinar[0].sectionUrl,
-          sectionTitle: filterCombinar[0].sectionTitle,
-          isHidden: true
+          sectionTitle: filterCombinar[0].sectionTitle
         },
         methods: {
           error(index){

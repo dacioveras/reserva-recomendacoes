@@ -594,16 +594,15 @@
 	border-color: #a9a8a8;
 }
 
-.mz-slider--content:hover .options-colors{
+.reserva-image:hover .options-colors{
 	display: inline-block;
-	
 	transition: .25s ease-in opacity;
 	opacity: 1;
 }
 
 .options-colors{
 	z-index: 15;
-	top: 288px;
+	top: 324px;
 	left: 50%;
 	width: 99%;
 	transform: translateX(-50%);
@@ -625,9 +624,14 @@
     border: 1px solid #ccc;
 	background: #fff;
 	cursor: pointer;
+	overflow: hidden;
 }
 .options-colors button:hover{
 	background-color: #ba5357
+}
+.options-colors button > a{
+	color: #fff;
+	padding: 10px 50px;
 }
 .options-colors button{
 	text-transform: uppercase;
