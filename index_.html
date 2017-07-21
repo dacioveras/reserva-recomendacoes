@@ -805,7 +805,8 @@
 				<div class="swiper-wrapper">
 
 					<div class="swiper-slide" v-for="(data, index) in section">
-						<a :href="data.productUrl" >
+						<reserva-image :produto="data"></reserva-image>
+						<!-- <a :href="data.productUrl" >
 							<div class="mz-slider--content">
 								<div class="mz-slider--content__image">
 									<img class="img-product" :src="data.produtoImage" onerror="this.style.display='none'"/>
@@ -816,27 +817,25 @@
 									</div>
 									<div class="mz-slider--content__description--bottom">
 										<span class="mz-atom--price">
+											<span v-if="data.productPrice === data.productPriceWithOption">
+												<span class="mz-atom--price__value">R$ {{ data.productPrice }}.00</span>
+											</span>
+											<span v-else>
+												<span class="mz-atom--price__desc">De R$ {{ data.productPriceWithOption }}.00 por</span>
+												<span class="mz-atom--price__value"> R$ {{ data.productPrice }}.00</span>
+											</span>
 
-	            					<span v-if="data.productPrice === data.productPriceWithOption">
-										<span class="mz-atom--price__value">R$ {{ data.productPrice }}.00</span>
-									</span>
-										<span v-else>
-											<span class="mz-atom--price__desc">De R$ {{ data.productPriceWithOption }}.00 por</span>
-										<span class="mz-atom--price__value"> R$ {{ data.productPrice }}.00</span>
-										</span>
-
-										<span v-if="(data.productPrice / 60) >= 2">
-													<span class="mz-atom--price__desc">
-		                      			<br />{{ ( data.productPrice / 60 ).toFixed() }}X de R$ {{ ( (data.productPrice) / ( (data.productPrice / 60).toFixed() ) ).toFixed(2) }}
-		                      		</span>
-										</span>
-										<span v-else></span>
-
+											<span v-if="(data.productPrice / 60) >= 2">
+												<span class="mz-atom--price__desc">
+													<br />{{ ( data.productPrice / 60 ).toFixed() }}X de R$ {{ ( (data.productPrice) / ( (data.productPrice / 60).toFixed() ) ).toFixed(2) }}
+												</span>
+											</span>
+											<span v-else></span>
 										</span>
 									</div>
 								</div>
 							</div>
-						</a>
+						</a> -->
 					</div>
 
 				</div>
@@ -1105,6 +1104,7 @@
 	<!-- LIBS E FRAMEWORKS ---- END -->
 
 	<!-- APPLICATION CODE -->
+	<script src="js/components.js"></script>
 	<script src="js/main.js"></script>
 </body>
 
