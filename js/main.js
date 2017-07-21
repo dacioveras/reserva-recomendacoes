@@ -25,7 +25,6 @@ App.Application = (function() {
       this.initSliderCategory();
       this.insertContentHero();
       this.anchorHero();
-      //this.errorImagem();
 
       // this.initClipboard();
   };
@@ -224,7 +223,7 @@ App.Application = (function() {
       });
     });
   }
-  
+ 
   return Application;
 })();
 
