@@ -25,7 +25,6 @@ App.Application = (function() {
       this.initSliderCategory();
       this.insertContentHero();
       this.anchorHero();
-      //this.errorImagem();
 
       // this.initClipboard();
   };
@@ -222,7 +221,7 @@ App.Application = (function() {
       });
     });
   }
-  
+ 
   return Application;
 })();
 
@@ -234,6 +233,6 @@ document.addEventListener('DOMContentLoaded', function(){
         $(obj).closest('.swiper-slide').addClass('hidden')
       }
     })
-  }, 1500);
+  }, 2000);
   
 });
