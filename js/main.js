@@ -57,6 +57,11 @@ App.Application = (function() {
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4) {
         if (this.status == 200) {
+
+          $('body').find('.hide-element').removeClass('hide-element');
+          $('.loading-gif').css('display', 'none');
+
+
           var response = JSON.parse(xhttp.responseText);
 
 

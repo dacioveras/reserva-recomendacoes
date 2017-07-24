@@ -5,6 +5,21 @@
 
 /* ==================================================== */
 
+.loading-gif {
+	width: 16px;
+	height: 16px;
+	background-image: url('../_images/loading.gif');
+	background-repeat: no-repeat;
+	background-position: center center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -8px 0 0 -8px;
+}
+.hide-element {
+	opacity: 0;
+}
+
 .mz-containerout{
 	width: 1024px;
 	/*min-width: 960px;
