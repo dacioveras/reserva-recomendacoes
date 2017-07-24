@@ -388,6 +388,10 @@
 	top: 0px;
 }
 
+.mz-slider--content__image{
+	position: relative;
+}
+
 .swiper-container--categorias .mz-slider--content__image a {
 	display: block;
 	position: relative;
@@ -617,7 +621,7 @@
 
 .options-colors{
 	z-index: 15;
-	top: 324px;
+	bottom: 0;
 	left: 50%;
 	width: 99%;
 	transform: translateX(-50%);

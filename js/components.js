@@ -1,35 +1,37 @@
 var templateImagem = '<div > \
                 <div class="reserva-image">\
-                    <options-colors :cores="grupo.produtos" v-on:emitcor="selectcor"></options-colors>\
-                    <a class="link-loja" :href="grupo.produtos[0].productUrl"> \
                         <div class="mz-slider--content">\
                             <div class="mz-slider--content__image">\
-                                <img class="img-product" :src="grupo.produtos[0].produtoImage" onerror="this.style.display=\'none\'"/>\
+                                <options-colors :cores="grupo.produtos" v-on:emitcor="selectcor"/>\
+                                <a class="link-loja" :href="grupo.produtos[0].productUrl">\
+                                    <img class="img-product" :src="grupo.produtos[0].produtoImage" onerror="this.style.display=\'none\'"/>\
+                                </a>\
                             </div> \
-                            <div class="mz-slider--content__description">\
-                                <div class="mz-slider--content__description--top">\
-                                    <h5 >{{grupo.produtos[0].productTitle}}</h5>\
-                                </div>\
-                                <div class="mz-slider--content__description--bottom">\
-                                    <span class="mz-atom--price">\
-                                        <span v-if="grupo.produtos[0].productPrice === grupo.produtos[0].productPriceWithOption">\
-                                            <span class="mz-atom--price__value">R$ {{ grupo.produtos[0].productPrice }}.00</span>\
-                                        </span>\
-                                        <span v-else>\
-                                            <span class="mz-atom--price__desc">De R$ {{ grupo.produtos[0].productPriceWithOption }}.00 por</span>\
-                                            <span class="mz-atom--price__value"> R$ {{ grupo.produtos[0].productPrice }}.00</span>\
-                                        </span>\
-                                        <span v-if="(grupo.produtos[0].productPrice / 60) >= 2">\
-                                            <span class="mz-atom--price__desc">\
-                                                <br />{{ ( grupo.produtos[0].productPrice / 60 ).toFixed() }}X de R$ {{ ( (grupo.produtos[0].productPrice) / ( (grupo.produtos[0].productPrice / 60).toFixed() ) ).toFixed(2) }}\
+                            <a class="link-loja" :href="grupo.produtos[0].productUrl">\
+                                <div class="mz-slider--content__description">\
+                                    <div class="mz-slider--content__description--top">\
+                                        <h5 >{{grupo.produtos[0].productTitle}}</h5>\
+                                    </div>\
+                                    <div class="mz-slider--content__description--bottom">\
+                                        <span class="mz-atom--price">\
+                                            <span v-if="grupo.produtos[0].productPrice === grupo.produtos[0].productPriceWithOption">\
+                                                <span class="mz-atom--price__value">R$ {{ grupo.produtos[0].productPrice }}.00</span>\
                                             </span>\
+                                            <span v-else>\
+                                                <span class="mz-atom--price__desc">De R$ {{ grupo.produtos[0].productPriceWithOption }}.00 por</span>\
+                                                <span class="mz-atom--price__value"> R$ {{ grupo.produtos[0].productPrice }}.00</span>\
+                                            </span>\
+                                            <span v-if="(grupo.produtos[0].productPrice / 60) >= 2">\
+                                                <span class="mz-atom--price__desc">\
+                                                    <br />{{ ( grupo.produtos[0].productPrice / 60 ).toFixed() }}X de R$ {{ ( (grupo.produtos[0].productPrice) / ( (grupo.produtos[0].productPrice / 60).toFixed() ) ).toFixed(2) }}\
+                                                </span>\
+                                            </span>\
+                                            <span v-else></span>\
                                         </span>\
-                                        <span v-else></span>\
-                                    </span>\
-                                </div>\
-                            </div> \
+                                    </div>\
+                                </div> \
+                            </a>\
                         </div>\
-                    </a>\
                 </div>\
         </div>';
 
@@ -47,9 +49,6 @@ Vue.component('reserva-image', {
     },
     methods:{
         selectcor: function(item){
-            console.log('------------------------------------');
-            console.log(item);
-            console.log('------------------------------------');
             var cor = item.produtoCor.split('/')[5].substr(0, 3);
             $(this.$el).find('.img-product').attr("src", item.produtoImage );
             $(this.$el).find('.link-loja').attr("href", item.productUrl + '?prodc=' + cor);
