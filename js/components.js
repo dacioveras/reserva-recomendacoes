@@ -3,11 +3,11 @@ var templateImagem = '<div > \
                         <div class="mz-slider--content">\
                             <div class="mz-slider--content__image">\
                                 <options-colors :cores="grupo.produtos" v-on:emitcor="selectcor"/>\
-                                <a class="link-loja" :href="grupo.produtos[0].productUrl">\
+                                <a class="link-loja" :href="productUrl">\
                                     <img class="img-product" :src="grupo.produtos[0].produtoImage" onerror="this.style.display=\'none\'"/>\
                                 </a>\
                             </div> \
-                            <a class="link-loja" :href="grupo.produtos[0].productUrl">\
+                            <a class="link-loja" :href="productUrl">\
                                 <div class="mz-slider--content__description">\
                                     <div class="mz-slider--content__description--top">\
                                         <h5 >{{grupo.produtos[0].productTitle}}</h5>\
@@ -45,7 +45,9 @@ Vue.component('reserva-image', {
         }
     },
     data: function(){
-        productUrl : this.grupo.produtos[0].productUrl
+        return {
+            productUrl : (this.grupo.produtos[0].productUrl + '?prodc=' +  this.grupo.produtos[0].produtoCor.split('/')[5].substr(0, 3))
+        }
     },
     methods:{
         selectcor: function(item){
