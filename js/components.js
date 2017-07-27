@@ -66,7 +66,6 @@ Vue.component('reserva-image', {
                             <img :src="cor.produtoCor" alt="cor.productTitle">\
                         </li>\
                     </ul>\
-                    <button class="hidden"> <a class="link-loja" :href="cores[0].productUrl"> adicionar à sacola </a> </button>\
                 </div>'
 
   //componentes das opções de cores.
