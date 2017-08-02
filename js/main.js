@@ -29,9 +29,6 @@ App.Application = (function() {
       // this.initClipboard();
   };
   
-  Application.fn.errorImagem = function(event){
-    console.log(event, arguments)
-  }
 
   Application.fn.anchorHero = function() {
       var el = this.container.find('.mz-content-last')[0];
@@ -104,9 +101,6 @@ App.Application = (function() {
               data.sectionProducts.push({'produtos': grupo})
             });
 
-            console.log('--------------data----------------------');
-            console.log(data);
-            console.log('------------------------------------');
 
             _self.state.sections.push(data);
             if (i === 3) {
@@ -140,7 +134,7 @@ App.Application = (function() {
           paginationClickable: true,
           nextButton: '.mz-bgSlider-next--categorias',
           prevButton: '.mz-bgSlider-prev--categorias',
-          loop: false,
+          loop: true,
           spaceBetween: 30,
           breakpoints: {
             1280: {
@@ -189,6 +183,7 @@ App.Application = (function() {
       new Vue({
         el: '#' + id,
         data: {
+
           section: filterCombinar[0].sectionProducts,
           sectionUrl: filterCombinar[0].sectionUrl,
           sectionTitle: filterCombinar[0].sectionTitle
@@ -201,13 +196,13 @@ App.Application = (function() {
       });
 
       new Swiper('.swiper-container--' + id, {
-          slidesPerView: 6,
-          slidesPerGroup: 6,
+          slidesPerView: 1,
+          slidesPerGroup: 1,
           speed: 1000,
           paginationClickable: true,
           nextButton: '.mz-bgSlider-next--' + id,
           prevButton: '.mz-bgSlider-prev--' + id,
-          loop: false,
+          loop: true,
           spaceBetween: 30,
           breakpoints: {
             1280: {
@@ -236,6 +231,6 @@ document.addEventListener('DOMContentLoaded', function(){
         $(obj).closest('.swiper-slide').addClass('hidden')
       }
     })
-  }, 2000);
+  }, 2500);
   
 });
